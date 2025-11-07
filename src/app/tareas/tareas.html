@@ -1,0 +1,61 @@
+<div class="tareas-container">
+  <div class="card-header">
+    <div class="exercise-badge">Ejercicio 2</div>
+    <h2>✅ Lista de Tareas Básica</h2>
+  </div>
+  
+  <div class="card-body">
+    <!-- Formulario para agregar nueva tarea -->
+    <div class="add-task-form">
+      <div class="input-wrapper">
+        <input 
+          type="text" 
+          [(ngModel)]="nuevaTarea" 
+          placeholder="¿Qué necesitas hacer hoy?"
+          class="task-input"
+          (keyup.enter)="agregarTarea()">
+        <span class="input-icon">📝</span>
+      </div>
+      <button 
+        (click)="agregarTarea()" 
+        class="btn btn-success"
+        [disabled]="!nuevaTarea.trim()">
+        <span>➕</span>
+        Agregar
+      </button>
+    </div>
+
+    <!-- Lista de tareas -->
+    <div class="tasks-section" *ngIf="tareas.length > 0">
+      <div class="tasks-header">
+        <h3>📋 Mis Tareas</h3>
+        <span class="task-counter">{{tareas.length}} tarea{{tareas.length !== 1 ? 's' : ''}}</span>
+      </div>
+      
+      <div class="tasks-list">
+        <div *ngFor="let tarea of tareas; let i = index; trackBy: trackByIndex" 
+             class="task-item"
+             [style.animation-delay]="i * 100 + 'ms'">
+          <div class="task-content">
+            <span class="task-number">{{i + 1}}</span>
+            <span class="task-text">{{tarea}}</span>
+          </div>
+          <button 
+            (click)="eliminarTarea(i)" 
+            class="btn-delete"
+            title="Eliminar tarea"
+            aria-label="Eliminar tarea {{i + 1}}">
+            🗑️
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Estado vacío -->
+    <div class="empty-state" *ngIf="tareas.length === 0">
+      <div class="empty-icon">📝</div>
+      <h3>¡Lista vacía!</h3>
+      <p>Agrega tu primera tarea usando el formulario de arriba</p>
+    </div>
+  </div>
+</div>

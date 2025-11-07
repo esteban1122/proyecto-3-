@@ -1,0 +1,154 @@
+<div class="pipes-container">
+  <h2>Ejercicio 5: Pipes y Transformación de Datos</h2>
+  
+  <!-- Pipe personalizado -->
+  <div class="section pipe-personalizado">
+    <h3>🎨 Pipe Personalizado: Capitalizar</h3>
+    <p class="description">
+      Este pipe toma una cadena y convierte la primera letra en mayúscula y el resto en minúsculas.
+    </p>
+    
+    <div class="interactive-demo">
+      <div class="input-group">
+        <label for="textoUsuario">Escribe un texto:</label>
+        <input 
+          id="textoUsuario"
+          type="text" 
+          [(ngModel)]="textoUsuario" 
+          placeholder="Ingresa cualquier texto..."
+          class="demo-input">
+      </div>
+      
+      <div class="result-group">
+        <div class="result-item">
+          <strong>Original:</strong> 
+          <span class="original">{{textoUsuario}}</span>
+        </div>
+        <div class="result-item">
+          <strong>Capitalizado:</strong> 
+          <span class="capitalized">{{textoUsuario | capitalizar}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="examples">
+      <h4>Prueba con estos ejemplos:</h4>
+      <div class="example-buttons">
+        <button 
+          *ngFor="let ejemplo of ejemplosTexto"
+          (click)="agregarEjemplo(ejemplo)"
+          class="example-btn">
+          {{ejemplo}}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pipes integrados -->
+  <div class="section pipes-integrados">
+    <h3>🔧 Pipes Integrados de Angular</h3>
+    
+    <div class="pipes-grid">
+      <!-- Pipe uppercase -->
+      <div class="pipe-card">
+        <h4>Uppercase</h4>
+        <div class="pipe-example">
+          <span class="original">'{{textoUsuario}}'</span>
+          <span class="arrow">→</span>
+          <span class="result">'{{textoUsuario | uppercase}}'</span>
+        </div>
+      </div>
+
+      <!-- Pipe lowercase -->
+      <div class="pipe-card">
+        <h4>Lowercase</h4>
+        <div class="pipe-example">
+          <span class="original">'{{textoUsuario}}'</span>
+          <span class="arrow">→</span>
+          <span class="result">'{{textoUsuario | lowercase}}'</span>
+        </div>
+      </div>
+
+      <!-- Pipe date -->
+      <div class="pipe-card">
+        <h4>Date</h4>
+        <div class="pipe-examples-multiple">
+          <div class="pipe-example">
+            <span class="label">short:</span>
+            <span class="result">{{fecha | date:'short'}}</span>
+          </div>
+          <div class="pipe-example">
+            <span class="label">medium:</span>
+            <span class="result">{{fecha | date:'medium'}}</span>
+          </div>
+          <div class="pipe-example">
+            <span class="label">fullDate:</span>
+            <span class="result">{{fecha | date:'fullDate'}}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pipe currency -->
+      <div class="pipe-card">
+        <h4>Currency</h4>
+        <div class="pipe-examples-multiple">
+          <div class="pipe-example">
+            <span class="label">USD:</span>
+            <span class="result">{{precio | currency:'USD':'symbol':'1.2-2'}}</span>
+          </div>
+          <div class="pipe-example">
+            <span class="label">EUR:</span>
+            <span class="result">{{precio | currency:'EUR':'symbol':'1.2-2'}}</span>
+          </div>
+          <div class="pipe-example">
+            <span class="label">COP:</span>
+            <span class="result">{{precio | currency:'COP':'symbol':'1.0-0'}}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pipe percent -->
+      <div class="pipe-card">
+        <h4>Percent</h4>
+        <div class="pipe-example">
+          <span class="original">{{porcentaje}}</span>
+          <span class="arrow">→</span>
+          <span class="result">{{porcentaje | percent}}</span>
+        </div>
+      </div>
+
+      <!-- Pipe JSON -->
+      <div class="pipe-card">
+        <h4>JSON</h4>
+        <div class="json-example">
+          <pre>{{ejemplosTexto | json}}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Combinación de pipes -->
+  <div class="section pipes-combinados">
+    <h3>⚡ Combinando Pipes</h3>
+    <div class="combination-examples">
+      <div class="combo-card">
+        <h4>Capitalizar + Fecha</h4>
+        <p>
+          <strong>Texto:</strong> "bienvenido" → 
+          <span class="result">{{('bienvenido' | capitalizar)}} - {{fecha | date:'shortDate'}}</span>
+        </p>
+      </div>
+      
+      <div class="combo-card">
+        <h4>Precio + Porcentaje</h4>
+        <p>
+          <strong>Precio con descuento:</strong> 
+          <span class="result">
+            {{precio | currency:'USD':'symbol':'1.2-2'}} 
+            ({{porcentaje | percent}} del precio original)
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

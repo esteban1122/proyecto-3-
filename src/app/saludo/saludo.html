@@ -1,0 +1,32 @@
+<div class="saludo-container">
+  <div class="card-header">
+    <div class="exercise-badge">Ejercicio 1</div>
+    <h2>👋 Componente de Saludo</h2>
+  </div>
+  
+  <div class="card-body">
+    <div class="form-group">
+      <label class="form-label" for="nombreInput">
+        ¿Cómo te llamas?
+      </label>
+      <div class="input-wrapper">
+        <input 
+          id="nombreInput"
+          type="text" 
+          [(ngModel)]="nombre" 
+          placeholder="Escribe tu nombre aquí..."
+          class="form-input"
+          autocomplete="given-name">
+        <span class="input-icon">👤</span>
+      </div>
+    </div>
+    
+    <div class="mensaje-saludo" [class.has-content]="nombre">
+      <div class="greeting-animation"></div>
+      <p *ngIf="nombre">¡Hola, {{nombre}}! 🎉</p>
+      <p *ngIf="!nombre" class="placeholder">
+        👆 Ingresa tu nombre arriba para recibir un saludo personalizado
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,117 @@
+<div class="tareas-servicio-container">
+  <h2>Ejercicio 4: Tareas con Servicio e Inyección de Dependencias</h2>
+  
+  <!-- Estadísticas -->
+  <div class="estadisticas">
+    <div class="stat-card total">
+      <h3>{{totalTareas}}</h3>
+      <p>Total</p>
+    </div>
+    <div class="stat-card completadas">
+      <h3>{{tareasCompletadas}}</h3>
+      <p>Completadas</p>
+    </div>
+    <div class="stat-card pendientes">
+      <h3>{{tareasPendientes}}</h3>
+      <p>Pendientes</p>
+    </div>
+  </div>
+
+  <!-- Controles -->
+  <div class="controles">
+    <!-- Formulario para agregar -->
+    <div class="add-task-form">
+      <input 
+        type="text" 
+        [(ngModel)]="nuevaTarea" 
+        placeholder="Agregar nueva tarea..."
+        class="task-input"
+        (keyup.enter)="agregarTarea()">
+      <button 
+        (click)="agregarTarea()" 
+        class="add-btn"
+        [disabled]="!nuevaTarea.trim()">
+        ➕ Agregar
+      </button>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filtros">
+      <label for="filtro">Mostrar:</label>
+      <select 
+        id="filtro"
+        [(ngModel)]="mostrarSolo" 
+        (change)="onFiltroChange()"
+        class="filter-select">
+        <option value="todas">🗂️ Todas</option>
+        <option value="pendientes">⏰ Pendientes</option>
+        <option value="completadas">✅ Completadas</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Lista de tareas -->
+  <div class="tasks-list" *ngIf="tareas.length > 0">
+    <h3>
+      Tareas 
+      <span class="filter-info">
+        ({{mostrarSolo === 'todas' ? 'todas' : mostrarSolo}}: {{tareas.length}})
+      </span>
+    </h3>
+    
+    <div class="task-grid">
+      <div 
+        *ngFor="let tarea of tareas; trackBy: trackByTareaId" 
+        class="task-card"
+        [class.completed]="tarea.completada">
+        
+        <!-- Header de la tarea -->
+        <div class="task-header">
+          <div class="task-checkbox">
+            <input 
+              type="checkbox" 
+              [checked]="tarea.completada"
+              (change)="toggleTarea(tarea.id)"
+              class="checkbox">
+            <label class="checkbox-label"></label>
+          </div>
+          <span class="task-id">#{{tarea.id}}</span>
+        </div>
+        
+        <!-- Contenido de la tarea -->
+        <div class="task-content">
+          <h4 class="task-title" [class.strikethrough]="tarea.completada">
+            {{tarea.titulo}}
+          </h4>
+          <p class="task-date">
+            Creada: {{tarea.fechaCreacion | date:'short'}}
+          </p>
+        </div>
+        
+        <!-- Acciones -->
+        <div class="task-actions">
+          <button 
+            (click)="eliminarTarea(tarea.id)" 
+            class="delete-btn"
+            title="Eliminar tarea">
+            🗑️
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mensaje cuando no hay tareas -->
+  <div class="no-tasks" *ngIf="tareas.length === 0">
+    <div class="empty-state">
+      <div class="empty-icon">📝</div>
+      <h3>No hay tareas {{mostrarSolo === 'todas' ? '' : mostrarSolo}}</h3>
+      <p *ngIf="mostrarSolo !== 'todas'">
+        Cambia el filtro o agrega una nueva tarea
+      </p>
+      <p *ngIf="mostrarSolo === 'todas'">
+        ¡Agrega tu primera tarea!
+      </p>
+    </div>
+  </div>
+</div>
